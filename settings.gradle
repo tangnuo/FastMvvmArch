@@ -1,3 +1,4 @@
-include ':BaseArch'
+include ':commonLib'
+include ':baseArch'
 include ':app'
 rootProject.name = "FastMvvmArch"
