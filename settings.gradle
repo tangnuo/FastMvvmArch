@@ -1,0 +1,3 @@
+include ':BaseArch'
+include ':app'
+rootProject.name = "FastMvvmArch"
