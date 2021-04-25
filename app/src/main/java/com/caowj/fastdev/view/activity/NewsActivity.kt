@@ -3,7 +3,6 @@ package com.caowj.fastdev.view.activity
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.caowj.fastdev.R
 import com.caowj.fastdev.databinding.ActivityNewsBinding
@@ -36,13 +35,15 @@ class NewsActivity : BaseActivity<ActivityNewsBinding, NewsViewModel>() {
 
     override fun initData() {
         super.initData()
+        nViewDataBinding.viewRef = this
+        nViewDataBinding.viewModel = nViewModel
+
         //数据请求成功通知
         //数据请求成功通知
-        viewModel.getNews().observe(this, Observer<NewsBean> {
+        viewModel.getNews().observe(this, Observer<MutableList<NewsBean.StoriesBean>> {
             it?.let {
-                adapter.setNewData(it.stories)
+                adapter.setNewData(it)
             }
         })
     }
-
 }
