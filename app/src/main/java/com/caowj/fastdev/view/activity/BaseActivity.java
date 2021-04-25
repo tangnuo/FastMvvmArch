@@ -8,7 +8,7 @@ import com.caowj.basic.base.FastBaseActivity;
 import com.caowj.fastdev.viewmodel.BaseViewModel;
 
 
-public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseViewModel> extends FastBaseActivity<V, VM> {
+public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseViewModel> extends FastBaseActivity<V, VM>  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,4 +27,5 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
 
     protected void initView() {
     }
+
 }

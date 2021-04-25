@@ -18,7 +18,7 @@ import com.caowj.fastdev.viewmodel.NewsViewModel
  *  日期：2021/4/23 11:34
  */
 class NewsActivity : BaseActivity<ActivityNewsBinding, NewsViewModel>() {
-    private var adapter: NewsAdapter? = null
+    private lateinit var adapter: NewsAdapter
 
     override fun getContentViewId() = R.layout.activity_news
 
@@ -38,15 +38,11 @@ class NewsActivity : BaseActivity<ActivityNewsBinding, NewsViewModel>() {
         super.initData()
         //数据请求成功通知
         //数据请求成功通知
-        viewModel.getNews().observe(this,
-            Observer<NewsBean> { TODO("Not yet implemented") })
-    }
-
-    /**
-     * 按钮点击事件
-     */
-    fun requestData(view: View?) {
-        viewModel.requestData()
+        viewModel.getNews().observe(this, Observer<NewsBean> {
+            it?.let {
+                adapter.setNewData(it.stories)
+            }
+        })
     }
 
 }

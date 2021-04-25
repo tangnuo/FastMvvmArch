@@ -3,17 +3,21 @@ package com.caowj.basic.base;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.caowj.basic.helper.FastCoreHelper;
 import com.caowj.basic.view.IBaseView;
+import com.caowj.basic.view.INotice;
 import com.caowj.basic.viewmodel.FastBaseViewModel;
 
 
@@ -26,7 +30,7 @@ import com.caowj.basic.viewmodel.FastBaseViewModel;
  * </pre>
  */
 public abstract class FastBaseActivity<V extends ViewDataBinding, VM extends FastBaseViewModel>
-        extends AppCompatActivity implements LifecycleOwner, IBaseView<V, VM> {
+        extends AppCompatActivity implements LifecycleOwner, IBaseView<V, VM>, INotice {
 
     protected V nViewDataBinding;
     protected VM nViewModel;
@@ -44,6 +48,8 @@ public abstract class FastBaseActivity<V extends ViewDataBinding, VM extends Fas
 //        nLifecycleRegistry.markState(Lifecycle.State.INITIALIZED);
         super.onCreate(savedInstanceState);
         performDataBinding();
+        // 初始化
+        initFastObserver();
         // 添加此行代码，LiveData类型数据被绑定后能刷新UI
         if (nViewDataBinding != null) {
             nViewDataBinding.setLifecycleOwner(this);
@@ -83,7 +89,6 @@ public abstract class FastBaseActivity<V extends ViewDataBinding, VM extends Fas
                 nViewModel = ViewModelProviders.of(this).get(viewModelClass);
             }
         }
-
         return nViewModel;
     }
 
@@ -102,7 +107,46 @@ public abstract class FastBaseActivity<V extends ViewDataBinding, VM extends Fas
         }
     }
 
-//    /**
+    /**
+     * 初始化监听ViewModel的数据变化
+     */
+    @CallSuper
+    private void initFastObserver() {
+        VM viewModel = getViewModel();
+        if (viewModel != null && viewModel instanceof FastBaseViewModel) {
+            ((FastBaseViewModel) viewModel).showLoadingLiveData.observe(this, new Observer<String>() {
+                @Override
+                public void onChanged(@Nullable String loadingMessage) {
+                    if (loadingMessage == null) {
+                        FastBaseActivity.this.hideLoading();
+                    } else {
+                        FastBaseActivity.this.showLoading(loadingMessage);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+        // TODO: 2021/4/25 弹窗待实现   可参考：NoticeManager
+    }
+
+    @Override
+    public void showLoading(String message) {
+        // TODO: 2021/4/25 弹窗待实现   可参考：NoticeManager
+    }
+
+    @Override
+    public void hideLoading() {
+        // TODO: 2021/4/25 弹窗待实现   可参考：NoticeManager
+    }
+    //    /**
 //     * 初始化DataBinding 的Variable变量字段
 //     */
 //    private void initViewDataBinding() {
