@@ -53,8 +53,14 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.6"
 
     //自定义Lib
-    implementation 'com.caowj.library:lib_logs:0.0.2'
-    implementation 'com.caowj.library:lib_utils:0.0.2'
-    implementation 'com.caowj.library:lib_network:0.0.1'
+//    implementation 'com.caowj.library:lib_logs:0.0.2'
+//    implementation 'com.caowj.library:lib_utils:0.0.2'
+//    implementation 'com.caowj.library:lib_network:0.0.1'
 //    implementation 'com.caowj.library:lib_widgets:0.0.1'
+    implementation("io.github.tangnuo:lib_widgets:0.0.1")
+    implementation("io.github.tangnuo:lib_logs:0.0.1")
+    implementation("io.github.tangnuo:lib_utils:0.0.1")
+    implementation("io.github.tangnuo:lib_widgets:0.0.1")
+    implementation("io.github.tangnuo:lib_network:0.0.1")
+    implementation 'io.github.tangnuo:lib_imageloader:0.0.1'
 }

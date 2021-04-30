@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-sdk tools:overrideLibrary="com.caowj.lib_network,com.caowj.lib_utils,com.caowj.lib_logs"/>
+    <uses-sdk tools:overrideLibrary="com.caowj.lib_network,com.caowj.lib_utils,com.caowj.lib_logs,com.caowj.lib_imageloader,com.caowj.lib_widgets,"/>
 
     <application
         android:allowBackup="true"
